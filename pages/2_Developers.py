@@ -140,10 +140,10 @@ with tab3:      # Market Price
         
 with tab4:  # Good-to-know
     st.write(
-        "These key trends can be useful for developing the most successful and profitable game."
+        "These key trends can be useful for developing the most successful and profitable game!"
     )
     st.write(
-        "Find the Sweet Spot!🍯"
+        "Find the Sweet Spot🍯"
     )
     if st.checkbox("Game Beat Time"):
         samples = tab4.radio("Samples", ["Overall", "The Success"])
