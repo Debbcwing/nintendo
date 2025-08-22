@@ -11,15 +11,15 @@ The project was developed as part of a **3-day group challenge** in the Data Sci
 
 ## Features
 
--   **Gamers' View** (by Damla)  
+-   **Gamers' View** (by [Damla](https://github.com/damlinaa))  
     - Search/filter by price, review scores, discounts  
     - Quickly discover the best-value games  
 
--   **Developers' View** (by Debbie)  
+-   **Developers' View** (by [Debbie](https://github.com/Debbcwing))
     - Analyze game success factors (genres, publishers, release trends)  
     - Identify market trends and opportunities  
 
--   **Data Foundation** (by Karlo)  
+-   **Data Foundation** (by [Karlo](https://github.com/karlolukic))  
     - Scraped ~22,000 Nintendo games from DekuDeals  
     - Attributes include: title, release date, price, publisher, review scores  
     - Cleaned and transformed into structured dataset with Python/Pandas  
@@ -87,5 +87,5 @@ This dashboard was developed collaboratively during a bootcamp group challenge:
 
 ## Acknowledgements
 
-This project was built as part of the **Data Science & AI Bootcamp (Batch 32)** at Constructor Academy.  
+This project was built as part of the **Data Science & AI Bootcamp (Batch 32)** at [Constructor Academy](https://academy.constructor.org).  
 Special thanks to the instructors and fellow participants for guidance and feedback throughout the project.
