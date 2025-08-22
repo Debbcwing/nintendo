@@ -223,7 +223,7 @@ with tab4:  # Good-to-know
             const = 14.2731
             beta1 = 3.8481 
             beta2 = -0.1006
-            optimal_beat_time = -beta1 / (2 * beta2)
+            optimal_size = -beta1 / (2 * beta2)
             size_range = np.linspace(df['download_size'].min(), df['download_size'].max(), 100)
             price_pred = const + beta1*size_range + beta2*size_range**2
 
