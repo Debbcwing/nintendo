@@ -194,7 +194,7 @@ with tab4:  # Good-to-know
                                 yaxis_title='Market Price')
             st.plotly_chart(fig_4b)
 
-    if st.checkbox("Game Size"):
+    if st.checkbox("Game Size", key='tab4b'):
         samples = tab4.radio("Samples", ["Overall", "The Success"], key='radio4b')
         if samples == "Overall":
             const = 13.7388
