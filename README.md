@@ -1,6 +1,6 @@
 # Nintendo Games Dashboard
 
-An interactive **Streamlit dashboard** providing insights into more than **22,000 Nintendo games**.  
+An [interactive **Streamlit dashboard**](https://nintendo.streamlit.app) providing insights into more than **22,000 Nintendo games**.  
 The project was developed as part of a **3-day group challenge** in the Data Science & AI Bootcamp (Batch 32) at [Constructor Academy](https://academy.constructor.org).  
 
 -   Built with **Python, Plotly, and Streamlit**  
