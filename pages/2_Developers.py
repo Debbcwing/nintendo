@@ -5,9 +5,9 @@ import plotly.express as px
 import plotly.graph_objects as go
 import numpy as np
 
-st.title("Developer Discovery")
+st.title("Developer Discovery ⚛️")
 
-st.write("Designing and developing games with greater user response and market value. ")
+st.write("")
 
 data_path = "data/deku_dev_df.csv"
 
@@ -25,19 +25,17 @@ def top10(data):
 
 top10_pub = top10(df['publisher'])
 top10_list = top10_pub['publisher'].tolist()
-top10_df = df[df['publisher'].isin(top10_list)]
+top10_df = df[df['publisher'].isin(top10_list)].copy()
 top10_df['publisher'] = pd.Categorical(top10_df['publisher'], categories=top10_list, ordered=True)
 
-
 success_gp = df[df['success']==1]
-
 
 # color scheme 
 colors = px.colors.qualitative.Plotly[:len(top10_list)]
 color_map = {publisher: colors[i] for i, publisher in enumerate(top10_list)}
 
 # tabs -----
-tab_names = ["Top 10 Publishers", "User Ratings", "Market Price", "Good-to-know"]
+tab_names = ["Top 10 Publishers", "Game Ratings", "Market Price", "Good-to-know"]
 tab1, tab2, tab3, tab4 = st.tabs(tab_names)
 
 
@@ -59,55 +57,56 @@ with tab1:      # Top 10 Publisher
                             color_discrete_map=color_map, hover_data=['title'], 
                             title='Market price to user ratings by Publisher',
                             category_orders={'publisher': top10_list},
-                            labels={'avg_score': 'Average User Score', 'msrp_price': 'Market Price'})
+                            labels={'avg_score': 'Game Ratings', 'msrp_price': 'Market Price'})
     fig_1_scatter.update_layout(legend_title='Publisher')
     st.plotly_chart(fig_1_scatter)
 
-with tab2:      # User Ratings
+with tab2:      # Ratings
     st.write(
-        ""
+        "The ratings are based on the average scores from game critics and users."
     )
-    if st.checkbox("Game Size"):
-        fig_2_scatter = px.scatter(df, x='download_size', y='avg_score', color='success',
-                                color_continuous_scale='RdBu', hover_data=['title'], 
-                                title='User Ratings to Game Size',
-                                labels={'avg_score': 'Average User Score', 'download_size': 'Game Size'})
-        fig_2_scatter.update_layout(legend_title='Publisher')
-        st.plotly_chart(fig_2_scatter)
+    st.write(
+        "Choose one variable:", key='tab2'
+    )
     if st.checkbox("Beat Time"):
         fig_2a_scatter = px.scatter(df, x='hltb_main_story', y='avg_score', color='success',
                                 color_continuous_scale='RdBu', hover_data=['title'], 
-                                title='User Ratings to Gam Beat Time',
-                                labels={'avg_score': 'Average User Score', 'hltb_main_story': 'Game Beat Time'})
+                                title='Game Ratings to Gam Beat Time',
+                                labels={'avg_score': 'Average Score', 'hltb_main_story': 'Game Beat Time'})
         fig_2a_scatter.update_layout(legend_title='Publisher')
         st.plotly_chart(fig_2a_scatter)
+        
+    if st.checkbox("Game Size"):
+        fig_2_scatter = px.scatter(df, x='download_size', y='avg_score', color='success',
+                                color_continuous_scale='RdBu', hover_data=['title'], 
+                                title='Game Ratings to Game Size',
+                                labels={'avg_score': 'Average Score', 'download_size': 'Download Size'})
+        fig_2_scatter.update_layout(legend_title='Publisher')
+        st.plotly_chart(fig_2_scatter)
+        
     if st.checkbox("Number of Available Language"):
         fig_2b_scatter = px.scatter(df, x='lang_count', y='avg_score', color='success',
                                 color_continuous_scale='RdBu', hover_data=['title'], 
-                                title='User Ratings to Number of Available Language',
-                                labels={'avg_score': 'Average User Score', 'lang_count': 'Number of Languages'})
+                                title='Game Ratings to Number of Available Language',
+                                labels={'avg_score': 'Average Score', 'lang_count': 'Number of Languages'})
         fig_2b_scatter.update_layout(legend_title='Publisher')
         st.plotly_chart(fig_2b_scatter)
+        
     if st.checkbox("Number of Available Platform"):
         fig_2c_scatter = px.scatter(df, x='plat_count', y='avg_score', color='success',
                                 color_continuous_scale='RdBu', hover_data=['title'], 
-                                title='User Ratings to Number of Game Platform',
-                                labels={'avg_score': 'Average User Score', 'plat_count': 'Number of Platforms'})
+                                title='Game Ratings to Number of Game Platform',
+                                labels={'avg_score': 'Average Score', 'plat_count': 'Number of Platforms'})
         fig_2c_scatter.update_layout(legend_title='Publisher')
         st.plotly_chart(fig_2c_scatter)
 
 with tab3:      # Market Price
     st.write(
-        ""
+        "The prices are based on the listed price of the game."
     )
-    if st.checkbox("Game Size", key='tab3'):
-        fig_3_scatter = px.scatter(df, x='download_size', y='msrp_price', color='success',
-                                color_continuous_scale='RdBu', hover_data=['title'], 
-                                title='Market Price to Game Size',
-                                labels={'msrp_price': 'Market Price', 'download_size': 'Game Size'})
-        fig_3_scatter.update_layout(legend_title='Publisher')
-        st.plotly_chart(fig_3_scatter)
-
+    st.write(
+        "Choose one variable:", key='tab3'
+    ) 
     if st.checkbox("Beat Time", key='tab3a'):
         fig_3a_scatter = px.scatter(df, x='hltb_main_story', y='msrp_price', color='success',
                                 color_continuous_scale='RdBu', hover_data=['title'], 
@@ -115,6 +114,14 @@ with tab3:      # Market Price
                                 labels={'msrp_price': 'Market Price', 'hltb_main_story': 'Game Beat Time'})
         fig_3a_scatter.update_layout(legend_title='Publisher')
         st.plotly_chart(fig_3a_scatter)
+
+    if st.checkbox("Game Size", key='tab3'):
+        fig_3_scatter = px.scatter(df, x='download_size', y='msrp_price', color='success',
+                                color_continuous_scale='RdBu', hover_data=['title'], 
+                                title='Market Price to Game Size',
+                                labels={'msrp_price': 'Market Price', 'download_size': 'Download Size'})
+        fig_3_scatter.update_layout(legend_title='Publisher')
+        st.plotly_chart(fig_3_scatter)
 
     if st.checkbox("Number of Available Language", key='tab3b'):
         fig_3b_scatter = px.scatter(df, x='lang_count', y='msrp_price', color='success',
@@ -130,12 +137,15 @@ with tab3:      # Market Price
                                 labels={'msrp_price': 'Market Price', 'plat_count': 'Number of Platforms'})
         fig_3c_scatter.update_layout(legend_title='Publisher')
         st.plotly_chart(fig_3c_scatter)
-
+        
 with tab4:  # Good-to-know
     st.write(
-        ""
+        "These key trends can be useful for developing the most successful and profitable game."
     )
-    if st.checkbox("The Sweet Spot of Game Beat Time"):
+    st.write(
+        "Find the Sweet Spot!🍯"
+    )
+    if st.checkbox("Game Beat Time"):
         samples = tab4.radio("Samples", ["Overall", "The Success"])
         if samples == "Overall":
             const = 13.6947
@@ -184,7 +194,7 @@ with tab4:  # Good-to-know
                                 yaxis_title='Market Price')
             st.plotly_chart(fig_4b)
 
-    if st.checkbox("The Sweet Spot of Game Size"):
+    if st.checkbox("Game Size"):
         samples = tab4.radio("Samples", ["Overall", "The Success"], key='radio4b')
         if samples == "Overall":
             const = 13.7388
