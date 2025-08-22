@@ -61,7 +61,7 @@ with tab1:      # Top 10 Publisher
     fig_1_scatter.update_layout(legend_title='Publisher')
     st.plotly_chart(fig_1_scatter)
 
-with tab2:      # Ratings
+with tab2:      # Game Ratings
     st.write(
         "The ratings are based on the average scores from game critics and users."
     )
@@ -71,19 +71,17 @@ with tab2:      # Ratings
     if st.checkbox("Beat Time"):
         fig_2a_scatter = px.scatter(df, x='hltb_main_story', y='avg_score', color='success',
                                 color_continuous_scale='RdBu', hover_data=['title'], 
-                                title='Game Ratings to Gam Beat Time',
-                                labels={'avg_score': 'Average Score', 'hltb_main_story': 'Game Beat Time'})
+                                title='Game Ratings to Game Beat Time',
+                                labels={'avg_score': 'Average Score', 'hltb_main_story': 'Game Beat Time (Hours)'})
         fig_2a_scatter.update_layout(legend_title='Publisher')
         st.plotly_chart(fig_2a_scatter)
-        
     if st.checkbox("Game Size"):
         fig_2_scatter = px.scatter(df, x='download_size', y='avg_score', color='success',
                                 color_continuous_scale='RdBu', hover_data=['title'], 
                                 title='Game Ratings to Game Size',
-                                labels={'avg_score': 'Average Score', 'download_size': 'Download Size'})
+                                labels={'avg_score': 'Average Score', 'download_size': 'Download Size (GB)'})
         fig_2_scatter.update_layout(legend_title='Publisher')
         st.plotly_chart(fig_2_scatter)
-        
     if st.checkbox("Number of Available Language"):
         fig_2b_scatter = px.scatter(df, x='lang_count', y='avg_score', color='success',
                                 color_continuous_scale='RdBu', hover_data=['title'], 
@@ -91,7 +89,6 @@ with tab2:      # Ratings
                                 labels={'avg_score': 'Average Score', 'lang_count': 'Number of Languages'})
         fig_2b_scatter.update_layout(legend_title='Publisher')
         st.plotly_chart(fig_2b_scatter)
-        
     if st.checkbox("Number of Available Platform"):
         fig_2c_scatter = px.scatter(df, x='plat_count', y='avg_score', color='success',
                                 color_continuous_scale='RdBu', hover_data=['title'], 
@@ -111,7 +108,7 @@ with tab3:      # Market Price
         fig_3a_scatter = px.scatter(df, x='hltb_main_story', y='msrp_price', color='success',
                                 color_continuous_scale='RdBu', hover_data=['title'], 
                                 title='User Ratings to Game Beat Time',
-                                labels={'msrp_price': 'Market Price', 'hltb_main_story': 'Game Beat Time'})
+                                labels={'msrp_price': 'Market Price (USD)', 'hltb_main_story': 'Game Beat Time (Hours)'})
         fig_3a_scatter.update_layout(legend_title='Publisher')
         st.plotly_chart(fig_3a_scatter)
 
@@ -119,7 +116,7 @@ with tab3:      # Market Price
         fig_3_scatter = px.scatter(df, x='download_size', y='msrp_price', color='success',
                                 color_continuous_scale='RdBu', hover_data=['title'], 
                                 title='Market Price to Game Size',
-                                labels={'msrp_price': 'Market Price', 'download_size': 'Download Size'})
+                                labels={'msrp_price': 'Market Price (USD)', 'download_size': 'Download Size (GB)'})
         fig_3_scatter.update_layout(legend_title='Publisher')
         st.plotly_chart(fig_3_scatter)
 
@@ -127,23 +124,23 @@ with tab3:      # Market Price
         fig_3b_scatter = px.scatter(df, x='lang_count', y='msrp_price', color='success',
                                 color_continuous_scale='RdBu', hover_data=['title'], 
                                 title='Market Price to Number of Available Language',
-                                labels={'msrp_price': 'Market Price', 'lang_count': 'Number of Languages'})
+                                labels={'msrp_price': 'Market Price (USD)', 'lang_count': 'Number of Languages'})
         fig_3b_scatter.update_layout(legend_title='Publisher')
         st.plotly_chart(fig_3b_scatter)
     if st.checkbox("Number of Available Platform", key='tab3c'):
         fig_3c_scatter = px.scatter(df, x='plat_count', y='msrp_price', color='success',
                                 color_continuous_scale='RdBu', hover_data=['title'], 
                                 title='Market Price to Number of Game Platform',
-                                labels={'msrp_price': 'Market Price', 'plat_count': 'Number of Platforms'})
+                                labels={'msrp_price': 'Market Price (USD)', 'plat_count': 'Number of Platforms'})
         fig_3c_scatter.update_layout(legend_title='Publisher')
         st.plotly_chart(fig_3c_scatter)
-        
+
 with tab4:  # Good-to-know
     st.write(
         "These key trends can be useful for developing the most successful and profitable game!"
     )
     st.write(
-        "Find the Sweet Spot🍯"
+        "Find the Sweet Spot 🍯"
     )
     if st.checkbox("Game Beat Time"):
         samples = tab4.radio("Samples", ["Overall", "The Success"])
@@ -167,8 +164,8 @@ with tab4:  # Good-to-know
                                     mode='markers', name='The Sweet Spot', marker=dict(color='red', size=12),
                                     hovertemplate= 'Beat Time: %{x} hrs<br>' + 'Price: $%{y}<extra></extra>'))
 
-            fig_4.update_layout(title='Market Price vs Game Beat Time', xaxis_title='Game Beat Time',
-                                yaxis_title='Market Price')
+            fig_4.update_layout(title='Market Price vs Game Beat Time', xaxis_title='Game Beat Time (Hours)',
+                                yaxis_title='Market Price (USD)')
             st.plotly_chart(fig_4)
         else:       # only success group samples
             const = 13.3381
@@ -190,8 +187,8 @@ with tab4:  # Good-to-know
                                     mode='markers', name='The Sweet Spot', marker=dict(color='red', size=12),
                                     hovertemplate= 'Beat Time: %{x} hrs<br>' + 'Price: $%{y}<extra></extra>'))
 
-            fig_4b.update_layout(title='Market Price vs Game Beat Time', xaxis_title='Game Beat Time',
-                                yaxis_title='Market Price')
+            fig_4b.update_layout(title='Market Price vs Game Beat Time', xaxis_title='Game Beat Time (Hours)',
+                                yaxis_title='Market Price (USD)')
             st.plotly_chart(fig_4b)
 
     if st.checkbox("Game Size", key='tab4b'):
@@ -214,10 +211,10 @@ with tab4:  # Good-to-know
             fig_4c.add_trace(go.Scatter(x=size_range, y=price_pred, mode='lines', name='Fitted Curve', line=dict(color='blue', width=5, dash='solid')))
             fig_4c.add_trace(go.Scatter(x=[optimal_size], y=[const + beta1*optimal_size + beta2*optimal_size**2],
                                         mode='markers', name='The Sweet Spot', marker=dict(color='red', size=12),
-                                        hovertemplate= 'Beat Time: %{x} hrs<br>' + 'Price: $%{y}<extra></extra>'))
+                                        hovertemplate= 'Download Size: %{x} GB<br>' + 'Price: $%{y}<extra></extra>'))
 
-            fig_4c.update_layout(title='Market Price vs Game Size', xaxis_title='Game Size',
-                                yaxis_title='Market Price')
+            fig_4c.update_layout(title='Market Price vs Game Size', xaxis_title='Game Size (GB)',
+                                yaxis_title='Market Price (USD)')
             st.plotly_chart(fig_4c)
         else:       # only success group samples
             const = 14.2731
@@ -237,10 +234,9 @@ with tab4:  # Good-to-know
             fig_4d.add_trace(go.Scatter(x=size_range, y=price_pred, mode='lines', name='Fitted Curve', line=dict(color='blue', width=5, dash='solid')))
             fig_4d.add_trace(go.Scatter(x=[optimal_size], y=[const + beta1*optimal_size + beta2*optimal_size**2],
                                         mode='markers', name='The Sweet Spot', marker=dict(color='red', size=12),
-                                        hovertemplate= 'Beat Time: %{x} hrs<br>' + 'Price: $%{y}<extra></extra>'))
+                                        hovertemplate= 'Download Size: %{x} GB<br>' + 'Price: $%{y}<extra></extra>'))
 
-            fig_4d.update_layout(title='Market Price vs Game Size', xaxis_title='Game Size',
-                                yaxis_title='Market Price')
+            fig_4d.update_layout(title='Market Price vs Game Size', xaxis_title='Game Size (GB)',
+                                yaxis_title='Market Price (USD)')
             st.plotly_chart(fig_4d)
-
 
