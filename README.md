@@ -78,9 +78,9 @@ The app will open in your browser.
 
 This dashboard was developed collaboratively during a bootcamp group challenge:  
 
--   **Karlo** – Web Scraping & Data Collection  
 -   **Damla** – Gamers' Insights UI  
 -   **Debbie** – Developers' Insights UI  
+-   **Karlo** – Web Scraping & Data Collection  
 
 ---
 
