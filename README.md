@@ -33,12 +33,13 @@ The project was developed as part of a **3-day group challenge** in the Data Sci
 
 ```text
 nintendo-games-dashboard/
-├── data/                         # scraped datasets (CSV)
-├── Welcome.py/                   # Streamlit dashboard entry point
+├── data/                          # scraped datasets (CSV)
+├── Welcome.py/                    # Streamlit dashboard entry point
 ├── pages/
 │   ├── 01_Gamers.py               # gamers page in Streamlit dashboard
 │   ├── 02_Developers.py           # developers page in Streamlit dashboard
 ├── requirements.txt               # dependencies
+├── slides/                        # PowerPoint presentation
 └── README.md
 ```
 
