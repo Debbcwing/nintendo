@@ -7,7 +7,7 @@ import numpy as np
 
 st.title("Developer Discovery ⚛️")
 
-st.write("")
+st.write("The data displayed in this section is based on a clean dataset that contains 2264 computer games.")
 
 data_path = 'data/deku_dev_df.csv'
 
