@@ -7,9 +7,9 @@ import numpy as np
 
 st.title("Developer Discovery ⚛️")
 
-st.write("The data displayed in this section is based on a clean dataset that contains 2264 computer games. ***The Success*** group is defined as those with game ratings over 70.")
+st.write("The data displayed in this section is based on a clean dataset that contains 2264 computer games.")
 
-data_path = 'Data/deku_dev_df.csv'
+data_path = 'data/deku_dev_df.csv'
 
 @st.cache_data
 def load_data(path):
@@ -28,12 +28,8 @@ top10_list = top10_pub['publisher'].tolist()
 top10_df = df[df['publisher'].isin(top10_list)].copy()
 top10_df['publisher'] = pd.Categorical(top10_df['publisher'], categories=top10_list, ordered=True)
 
-success_gp = df[df['success']==1]
 
-top10_succ = top10(success_gp['publisher'])
-top10_succ_list = top10_succ['publisher'].tolist()
-top10_succ_df = success_gp[success_gp['publisher'].isin(top10_succ_list)].copy()
-top10_succ_df['publisher'] = pd.Categorical(top10_succ_df['publisher'], categories=top10_succ_list, ordered=True)
+success_gp = df[df['success']==1]
 
 
 # color scheme 
@@ -46,44 +42,26 @@ tab1, tab2, tab3, tab4 = st.tabs(tab_names)
 
 
 with tab1:      # Top 10 Publisher
-    samples = tab1.radio("Samples", ["Overall", "The Success"], key='tab1')
-    if samples == "Overall":
-        # barplot
-        fig_1_bar = px.bar(top10_pub,
-                        x='count', y='publisher', orientation='h',
-                        title='Top 10 Publishers by Game Count',
-                        labels={'publisher': 'Publisher', 'count': 'Number of Games'},
-                        category_orders={'publisher': top10_list},
-                        color='publisher', color_discrete_map=color_map)
-        fig_1_bar.update_layout(yaxis={'categoryorder': 'total ascending'})
-        st.plotly_chart(fig_1_bar)
-        # scatterplot
-        fig_1_scatter = px.scatter(top10_df, x='avg_score', y='msrp_price', color='publisher',
-                                color_discrete_map=color_map, hover_data=['title'], 
-                                title='Market price to user ratings by Publisher',
-                                category_orders={'publisher': top10_list},
-                                labels={'avg_score': 'Game Ratings', 'msrp_price': 'Market Price (USD)'})
-        fig_1_scatter.update_layout(legend_title='Publisher')
-        st.plotly_chart(fig_1_scatter)
-    else: 
-        # barplot
-        fig_1a_bar = px.bar(top10_succ,
-                        x='count', y='publisher', orientation='h',
-                        title='Top 10 Publishers by Game Count',
-                        labels={'publisher': 'Publisher', 'count': 'Number of Games'},
-                        category_orders={'publisher': top10_succ_list},
-                        color='publisher', color_discrete_map=color_map)
-        fig_1a_bar.update_layout(yaxis={'categoryorder': 'total ascending'})
-        st.plotly_chart(fig_1a_bar)
-        # scatterplot
-        fig_1a_scatter = px.scatter(top10_succ_df, x='avg_score', y='msrp_price', color='publisher',
-                                color_discrete_map=color_map, hover_data=['title'], 
-                                title='Market price to user ratings by Publisher',
-                                category_orders={'publisher': top10_succ_list},
-                                labels={'avg_score': 'Game Ratings', 'msrp_price': 'Market Price (USD)'})
-        fig_1a_scatter.update_layout(legend_title='Publisher')
-        st.plotly_chart(fig_1a_scatter)
-
+    st.write(
+        ""
+    )
+    # barplot
+    fig_1_bar = px.bar(top10_pub,
+                    x='count', y='publisher', orientation='h',
+                    title='Top 10 Publishers by Game Count',
+                    labels={'publisher': 'Publisher', 'count': 'Number of Games'},
+                    category_orders={'publisher': top10_list},
+                    color='publisher', color_discrete_map=color_map)
+    fig_1_bar.update_layout(yaxis={'categoryorder': 'total ascending'})
+    st.plotly_chart(fig_1_bar)
+    # scatterplot
+    fig_1_scatter = px.scatter(top10_df, x='avg_score', y='msrp_price', color='publisher',
+                            color_discrete_map=color_map, hover_data=['title'], 
+                            title='Market price to user ratings by Publisher',
+                            category_orders={'publisher': top10_list},
+                            labels={'avg_score': 'Game Ratings', 'msrp_price': 'Market Price (USD)'})
+    fig_1_scatter.update_layout(legend_title='Publisher')
+    st.plotly_chart(fig_1_scatter)
 
 with tab2:      # Game Ratings
     st.write(
@@ -123,7 +101,7 @@ with tab2:      # Game Ratings
 
 with tab3:      # Market Price
     st.write(
-        "The prices are based on the listed price of the game. "
+        "The prices are based on the listed price of the game."
     )
     st.write(
         "Choose one variable:", key='tab3'
@@ -161,7 +139,7 @@ with tab3:      # Market Price
 
 with tab4:  # Good-to-know
     st.write(
-        "These key trends can be useful for developing the most successful and profitable game!"
+        "These key trends can be useful for developing the most successful and profitable game! ***The Success*** group is defined as those with ratings over 70."
     )
     st.write("")
     st.write("")
@@ -295,5 +273,3 @@ with tab4:  # Good-to-know
         fig_4e.update_layout(title='Market Price vs Game Ratings', xaxis_title='Game Ratings',
                             yaxis_title='Market Price (USD)')
         st.plotly_chart(fig_4e)
-
-
