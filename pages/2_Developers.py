@@ -9,7 +9,7 @@ st.title("Developer Discovery ⚛️")
 
 st.write("")
 
-data_path = "data/deku_dev_df.csv"
+data_path = 'data/deku_dev_df.csv'
 
 @st.cache_data
 def load_data(path):
@@ -28,7 +28,9 @@ top10_list = top10_pub['publisher'].tolist()
 top10_df = df[df['publisher'].isin(top10_list)].copy()
 top10_df['publisher'] = pd.Categorical(top10_df['publisher'], categories=top10_list, ordered=True)
 
+
 success_gp = df[df['success']==1]
+
 
 # color scheme 
 colors = px.colors.qualitative.Plotly[:len(top10_list)]
@@ -57,7 +59,7 @@ with tab1:      # Top 10 Publisher
                             color_discrete_map=color_map, hover_data=['title'], 
                             title='Market price to user ratings by Publisher',
                             category_orders={'publisher': top10_list},
-                            labels={'avg_score': 'Game Ratings', 'msrp_price': 'Market Price'})
+                            labels={'avg_score': 'Game Ratings', 'msrp_price': 'Market Price (USD)'})
     fig_1_scatter.update_layout(legend_title='Publisher')
     st.plotly_chart(fig_1_scatter)
 
@@ -137,10 +139,12 @@ with tab3:      # Market Price
 
 with tab4:  # Good-to-know
     st.write(
-        "These key trends can be useful for developing the most successful and profitable game!"
+        "These key trends can be useful for developing the most successful and profitable game! ***The Success*** group is defined as those with ratings over 70."
     )
+    st.write("")
+    st.write("")
     st.write(
-        "Find the Sweet Spot 🍯"
+        "🍯 Find the Safe Range / Sweet Spot for:"
     )
     if st.checkbox("Game Beat Time"):
         samples = tab4.radio("Samples", ["Overall", "The Success"])
@@ -239,4 +243,33 @@ with tab4:  # Good-to-know
             fig_4d.update_layout(title='Market Price vs Game Size', xaxis_title='Game Size (GB)',
                                 yaxis_title='Market Price (USD)')
             st.plotly_chart(fig_4d)
+    
+    
+    ## another section
+    st.write(
+        "Find a reference for potential price based on:"
+    )    
+    if st.checkbox("Game Ratings", key='tab4e'):
+        const = 13.0822
+        beta = 0.1496  # model coef
+        score_range = np.linspace(df['avg_score'].min(), df['avg_score'].max(), 100)
+        price_pred = const + beta * score_range
+        const_succ = -13.9619
+        beta_succ = 0.4971
+        score_range_succ = np.linspace(success_gp['avg_score'].min(), success_gp['avg_score'].max(), 50)
+        price_pred_succ = const_succ + beta_succ * score_range_succ
 
+        fig_4e = go.Figure()
+        fig_4e.add_trace(go.Scatter(x=df['avg_score'], y=df['msrp_price'], mode='markers', name='Game Data', opacity=0.7,
+                        marker=dict(color='green', size=6),
+                        customdata=np.stack([df['title']], axis=-1), 
+                        hovertemplate='<b>%{customdata[0]}</b><br>' +  
+                                        'Beat Time: %{x} hrs<br>' +
+                                        'Price: $%{y}<extra></extra>'))
+        fig_4e.add_trace(go.Scatter(x=score_range, y=price_pred, mode='lines', name='Fitted Curve for All', 
+                                    line=dict(color='blue', width=5, dash='solid')))
+        fig_4e.add_trace(go.Scatter(x=score_range_succ, y=price_pred_succ, mode='lines', name='Fitted Curve for The Success', 
+                                    line=dict(color='red', width=5, dash='solid')))
+        fig_4e.update_layout(title='Market Price vs Game Ratings', xaxis_title='Game Ratings',
+                            yaxis_title='Market Price (USD)')
+        st.plotly_chart(fig_4e)
