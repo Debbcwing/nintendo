@@ -160,7 +160,7 @@ with tab3:      # Market Price
 
 with tab4:  # Good-to-know
     st.write(
-        "These key trends can be useful for developing the most successful and profitable game! ***The Success*** group is defined as those with ratings over 70."
+        "These key trends can be useful for developing the most successful and profitable game!"
     )
     st.write("")
     st.write("")
